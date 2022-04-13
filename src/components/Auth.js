@@ -1,6 +1,6 @@
 import React from "react";
-
 import "./Auth.css";
+// import { loginSlice } from "../store/login-slice";
 
 const Auth = () => {
   return (
