@@ -5,9 +5,9 @@ import Layout from "./components/Layout";
 import { useSelector } from "react-redux";
 
 function App() {
-  const userLogged = useSelector((state) => state.isLogged);
-  console.log(userLogged);
-  console.log(userLogged);
+  const itemsList = useSelector((state) => state.addItem.allItems);
+  console.log(itemsList);
+  const userLogged = useSelector((state) => state.login.isLogged);
   return <div className="App">{userLogged ? <Layout /> : <Auth />}</div>;
 }
 
