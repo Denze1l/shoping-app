@@ -28,7 +28,8 @@ const cardSlice = createSlice({
     },
     removeCart() {},
     showCart(state) {
-      state.showcart = true;
+      state.showItem = !state.showItem;
+      console.log(state.showItem);
     },
   },
 });

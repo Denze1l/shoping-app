@@ -11,8 +11,12 @@ const CartItems = () => {
       <ul>
         {selector.map((item) => (
           <li key={item.id}>
-            id = {item.id}, name= {item.name}, price={item.price}
-            total={item.totalPrice}
+            <CartItem
+              id={item.id}
+              name={item.name}
+              price={item.price}
+              total={item.totalPrice}
+            />
           </li>
         ))}
       </ul>
