@@ -11,6 +11,7 @@ const cardSlice = createSlice({
     addToList(state, action) {
       const newItem = action.payload;
       const isNew = state.allItems.find((item) => item.id === newItem.id);
+
       if (isNew) {
         isNew.quantity++;
         isNew.totalPrice += newItem.price;
@@ -26,10 +27,19 @@ const cardSlice = createSlice({
         state.numberOfItems++;
       }
     },
-    removeCart() {},
+    removeElement(state, action) {
+      let id = action.payload;
+      console.log(action.payload);
+      const checkList = state.allItems.find((item) => item.id === id);
+      if (checkList.quantity === 1) {
+        state.allItems.filter((item) => item.id !== id);
+      } else {
+        checkList.quantity--;
+        checkList.totalPrice -= checkList.price;
+      }
+    },
     showCart(state) {
       state.showItem = !state.showItem;
-      console.log(state.showItem);
     },
   },
 });
