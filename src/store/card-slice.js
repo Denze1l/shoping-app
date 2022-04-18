@@ -32,11 +32,12 @@ const cardSlice = createSlice({
       console.log(action.payload);
       const checkList = state.allItems.find((item) => item.id === id);
       if (checkList.quantity === 1) {
-        state.allItems.filter((item) => item.id !== id);
+        state.allItems = state.allItems.filter((item) => item.id !== id);
       } else {
         checkList.quantity--;
         checkList.totalPrice -= checkList.price;
       }
+      state.numberOfItems--;
     },
     showCart(state) {
       state.showItem = !state.showItem;
