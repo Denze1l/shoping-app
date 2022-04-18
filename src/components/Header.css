@@ -12,3 +12,10 @@
   font-family: monospace;
   font-size: 30px;
 }
+
+.lgout-btn {
+  background: orange;
+  font-size: medium;
+  padding: 10px;
+  margin-right: 20px;
+}
