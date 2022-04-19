@@ -29,7 +29,6 @@ const cardSlice = createSlice({
     },
     removeElement(state, action) {
       let id = action.payload;
-      console.log(action.payload);
       const checkList = state.allItems.find((item) => item.id === id);
       if (checkList.quantity === 1) {
         state.allItems = state.allItems.filter((item) => item.id !== id);
