@@ -3,7 +3,7 @@ import "./App.css";
 import Auth from "./components/Auth";
 import Layout from "./components/Layout";
 import { useSelector } from "react-redux";
-//
+import Notification from "./components/Notification";
 
 function App() {
   const cart = useSelector((state) => state.addItem);
@@ -23,7 +23,12 @@ function App() {
     sendRequest();
   }, [cart]);
 
-  return <div className="App">{userLogged ? <Layout /> : <Auth />}</div>;
+  return (
+    <div className="App">
+      <Notification type="success" message={"Is it work?"} />
+      {userLogged ? <Layout /> : <Auth />}
+    </div>
+  );
 }
 
 export default App;
