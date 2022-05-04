@@ -6,12 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "./components/Notification";
 import { uiActions } from "./store/ui-slice";
 
+let firstRender = true;
 function App() {
-  const dispatch = useDispatch;
-  const notification = useSelector((state) => state.ui.Notification);
+  const dispatch = useDispatch();
+  const notification = useSelector((state) => state.ui.notification);
   const cart = useSelector((state) => state.addItem);
   const userLogged = useSelector((state) => state.login.isLogged);
   useEffect(() => {
+    if (firstRender) {
+      firstRender = false;
+      return;
+    }
     dispatch(
       uiActions.showNotification({
         open: true,
@@ -45,11 +50,13 @@ function App() {
         })
       );
     });
-  }, [cart]);
+  }, [cart, dispatch]);
 
   return (
     <div className="App">
-      <Notification type={notification.type} message={notification.message} />
+      {notification && (
+        <Notification type={notification.type} message={notification.message} />
+      )}
       {userLogged ? <Layout /> : <Auth />}
     </div>
   );

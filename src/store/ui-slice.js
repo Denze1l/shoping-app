@@ -2,10 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const uiSlice = createSlice({
   name: "ui",
-  initialState: { Notification: null },
+  initialState: { notification: null },
   reducers: {
-    showNotification(action, payload) {
-      StaticRange.Notification = {
+    showNotification(state, action) {
+      state.notification = {
         message: action.payload.message,
         type: action.payload.type,
         open: action.payload.open,
