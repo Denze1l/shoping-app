@@ -6,9 +6,15 @@ const cardSlice = createSlice({
     allItems: [],
     numberOfItems: 0,
     showItem: false,
+    changed: false,
   },
   reducers: {
+    dataFromServer(state, action) {
+      state.numberOfItems = action.payload.numberOfItems;
+      state.allItems = action.payload.allItems;
+    },
     addToList(state, action) {
+      state.changed = true;
       const newItem = action.payload;
       const isNew = state.allItems.find((item) => item.id === newItem.id);
 
@@ -28,6 +34,7 @@ const cardSlice = createSlice({
       }
     },
     removeElement(state, action) {
+      state.changed = true;
       let id = action.payload;
       const checkList = state.allItems.find((item) => item.id === id);
       if (checkList.quantity === 1) {

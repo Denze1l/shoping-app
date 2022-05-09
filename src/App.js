@@ -5,6 +5,7 @@ import Layout from "./components/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "./components/Notification";
 import { uiActions } from "./store/ui-slice";
+import { cardActions } from "./store/card-slice";
 
 let firstRender = true;
 function App() {
@@ -12,6 +13,30 @@ function App() {
   const notification = useSelector((state) => state.ui.notification);
   const cart = useSelector((state) => state.addItem);
   const userLogged = useSelector((state) => state.login.isLogged);
+
+  useEffect(() => {
+    const getInfofromBase = async () => {
+      const res = await fetch(
+        "https://shoping-app-926f6-default-rtdb.firebaseio.com/cartItems.json"
+      );
+      const data = await res.json();
+      console.log(data);
+      if (data.numberOfItems > 0) {
+        dispatch(cardActions.dataFromServer(data));
+      }
+    };
+
+    getInfofromBase().catch((err) => {
+      dispatch(
+        uiActions.showNotification({
+          open: true,
+          message: "Getting request failed",
+          type: "error",
+        })
+      );
+    });
+  }, [dispatch]);
+
   useEffect(() => {
     if (firstRender) {
       firstRender = false;
@@ -32,7 +57,6 @@ function App() {
           body: JSON.stringify(cart),
         }
       );
-      const data = await res.json();
       dispatch(
         uiActions.showNotification({
           open: true,
