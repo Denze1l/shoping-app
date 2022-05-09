@@ -20,7 +20,6 @@ function App() {
         "https://shoping-app-926f6-default-rtdb.firebaseio.com/cartItems.json"
       );
       const data = await res.json();
-      console.log(data);
       if (data.numberOfItems > 0) {
         dispatch(cardActions.dataFromServer(data));
       }
@@ -42,38 +41,40 @@ function App() {
       firstRender = false;
       return;
     }
-    dispatch(
-      uiActions.showNotification({
-        open: true,
-        message: "Sending request",
-        type: "warning",
-      })
-    );
-    const sendRequest = async () => {
-      const res = await fetch(
-        "https://shoping-app-926f6-default-rtdb.firebaseio.com/cartItems.json",
-        {
-          method: "PUT",
-          body: JSON.stringify(cart),
-        }
-      );
+    if (cart.changed === true) {
       dispatch(
         uiActions.showNotification({
           open: true,
-          message: "Sent successfully",
-          type: "success",
+          message: "Sending request",
+          type: "warning",
         })
       );
-    };
-    sendRequest().catch((err) => {
-      dispatch(
-        uiActions.showNotification({
-          open: true,
-          message: "Sending request failed",
-          type: "error",
-        })
-      );
-    });
+      const sendRequest = async () => {
+        const res = await fetch(
+          "https://shoping-app-926f6-default-rtdb.firebaseio.com/cartItems.json",
+          {
+            method: "PUT",
+            body: JSON.stringify(cart),
+          }
+        );
+        dispatch(
+          uiActions.showNotification({
+            open: true,
+            message: "Sent successfully",
+            type: "success",
+          })
+        );
+      };
+      sendRequest().catch((err) => {
+        dispatch(
+          uiActions.showNotification({
+            open: true,
+            message: "Sending request failed",
+            type: "error",
+          })
+        );
+      });
+    }
   }, [cart, dispatch]);
 
   return (
